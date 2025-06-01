@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\Api\WilayahController;
@@ -10,7 +9,6 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
-use App\Mail\MyEmail;
 use App\Models\Alumni;
 use App\Models\User;
 use App\Models\Pengaturan;
@@ -26,15 +24,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
-
-Route::get('/testemail', function() {
-  $data = [
-    'subject' => 'Testing kirim Email',
-    'title' => 'Testingemail',
-    'body' => 'Ini adalah email dari hrmwn'
-  ];
-  Mail::to('hermawangooo@gmail.com')->send(new MyEmail($data));
-});
 
 Route::post('/doku/notify', [ApiController::class, 'notifDoku']);
 
