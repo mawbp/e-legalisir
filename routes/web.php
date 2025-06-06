@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlumniController;
-use App\Http\Controllers\Api\WilayahController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\ProdiController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use App\Models\Alumni;
 use App\Models\User;
