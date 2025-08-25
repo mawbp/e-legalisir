@@ -4,21 +4,21 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Sistem Legalisir Online</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="{{ asset('atlantis/img/icon.ico')}}" type="image/x-icon"/>
+	<link rel="icon" href="{{ asset('storage/atlantis/img/icon.ico')}}" type="image/x-icon"/>
 	<!-- Fonts and icons -->
-	<script src="{{ asset('atlantis/js/plugin/webfont/webfont.min.js')}}"></script>
+	<script src="{{ asset('storage/atlantis/js/plugin/webfont/webfont.min.js')}}"></script>
 	<script>
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ["{{ asset('atlantis/css/fonts.min.css') }}" ]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ["{{ asset('storage/atlantis/css/fonts.min.css') }}" ]},
 			active: function() {
 				sessionStorage.fonts = true;
 			}
 		});
 	</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="{{ asset('atlantis/js/core/popper.min.js')}}"></script>
-  <script src="{{ asset('atlantis/js/core/bootstrap.min.js')}}"></script>
+  <script src="{{ asset('storage/atlantis/js/core/popper.min.js')}}"></script>
+  <script src="{{ asset('storage/atlantis/js/core/bootstrap.min.js')}}"></script>
   <!-- DataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <!-- Buttons extension -->
@@ -28,8 +28,8 @@
   <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
 
-	<link rel="stylesheet" href="{{ asset('atlantis/css/bootstrap.min.css')}}">
-	<link rel="stylesheet" href="{{ asset('atlantis/css/atlantis.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('storage/atlantis/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('storage/atlantis/css/storage/atlantis.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/lightbox.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/bootstrap4-toggle.min.css')}}">
 	@yield('style')
@@ -41,7 +41,7 @@
 			<div class="logo-header" data-background-color="blue">
 				
 				<a href="index.html" class="logo">
-					<img src="{{ asset('atlantis/img/logo.svg')}}" alt="navbar brand" class="navbar-brand">
+					<img src="{{ asset('storage/atlantis/img/logo.svg')}}" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -68,7 +68,7 @@
 				<div class="sidebar-content">
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
-							<img src="{{ asset('atlantis/img/profile.jpg')}}" alt="..." class="avatar-img rounded-circle">
+							<img src="{{ asset('storage/atlantis/img/profile.jpg')}}" alt="..." class="avatar-img rounded-circle">
 						</div>
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -134,18 +134,18 @@
 	<!--   Core JS Files   -->
   
 	<!-- jQuery UI -->
-	<script src="{{ asset('atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
-	<script src="{{ asset('atlantis/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')}}"></script>
+	<script src="{{ asset('storage/atlantis/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
+	<script src="{{ asset('storage/atlantis/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')}}"></script>
 	
-	<script src="{{ asset('atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
+	<script src="{{ asset('storage/atlantis/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha512-GsqF810cNwHMCDELTwi3YgWIBwKYQlvC1WTAJ6fk80rtB6zN3IWdpoQujBQCuOMOxXXksEWwE0k4Lrb+N87DZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="{{ asset('atlantis/js/plugin/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
+	<script src="{{ asset('storage/atlantis/js/plugin/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/circles/0.0.6/circles.min.js" integrity="sha512-r1w3tnPCKov9Spj2bJGCQQBJ5wcJywFgL79lKMXvzBMXIPFI9xXQDmwuVs+ERh1tnL0UFT1hLrwtKh1z5/XCCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="{{ asset('atlantis/js/plugin/sweetalert/sweetalert.js')}}"></script>
+	<script src="{{ asset('storage/atlantis/js/plugin/sweetalert/sweetalert.js')}}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js"></script>
 	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 	<script src="{{ asset('js/bootstrap4-toggle.min.js')}}"></script>
-	<script src="{{asset('atlantis/js/atlantis.min.js')}}"></script>
+	<script src="{{asset('storage/atlantis.min.js')}}"></script>
   @yield('script')
 </body>
 </html>

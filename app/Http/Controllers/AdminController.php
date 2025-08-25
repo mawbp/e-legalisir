@@ -40,7 +40,7 @@ class AdminController extends Controller
     //
     public function showLoginForm()
     {
-        $pengaturan = Pengaturan::all()->keyBy('nama');
+      $pengaturan = Pengaturan::all()->keyBy('nama');
       return view('auth.admin', ['pengaturan' => $pengaturan]);
     }
 

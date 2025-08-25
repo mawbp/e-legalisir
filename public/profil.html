@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Profil - Legalisir Online</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  
+<!-- Navbar dengan Dropdown Akun -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Dashboard Mahasiswa</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEdit">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarEdit">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="akunDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Akun
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow rounded" aria-labelledby="akunDropdown">
+            <li><a class="dropdown-item" href="#">Edit Profil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Form Edit Profil -->
+<section class="container my-5">
+  <h2 class="mb-4">Edit Profil Mahasiswa</h2>
+  <form>
+    <div class="mb-3">
+      <label for="nama" class="form-label">Nama Lengkap</label>
+      <input type="text" class="form-control" id="nama" value="John Doe" required>
+    </div>
+    <div class="mb-3">
+      <label for="nim" class="form-label">NIM</label>
+      <input type="text" class="form-control" id="nim" value="1234567890" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" value="mahasiswa@example.com" required>
+    </div>
+    <div class="mb-3">
+      <label for="prodi" class="form-label">Program Studi</label>
+      <input type="text" class="form-control" id="prodi" value="Sistem Informasi" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password Baru</label>
+      <input type="password" class="form-control" id="password" placeholder="Kosongkan jika tidak ingin mengganti">
+    </div>
+    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer class="text-center py-4 bg-primary text-white mt-5">
+  <p class="mb-0">&copy; 2025 Kampus Anda - Edit Profil Mahasiswa</p>
+</footer>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
