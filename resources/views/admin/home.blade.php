@@ -29,7 +29,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
 
 	<link rel="stylesheet" href="{{ asset('storage/atlantis/css/bootstrap.min.css')}}">
-	<link rel="stylesheet" href="{{ asset('storage/atlantis/css/storage/atlantis.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('storage/atlantis/css/atlantis.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/lightbox.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/bootstrap4-toggle.min.css')}}">
 	@yield('style')
@@ -145,7 +145,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js"></script>
 	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 	<script src="{{ asset('js/bootstrap4-toggle.min.js')}}"></script>
-	<script src="{{asset('storage/atlantis.min.js')}}"></script>
+	<script src="{{asset('storage/atlantis/js/atlantis.min.js')}}"></script>
   @yield('script')
 </body>
 </html>

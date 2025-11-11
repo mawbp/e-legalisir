@@ -353,14 +353,15 @@
         $("#prodie").val(data.data.prodi);
         $("#angkatane").val(data.data.tahun_angkatan);
         const dokumen = data.dokumen;
+        console.log(data);
+        
         for (const [key, value] of Object.entries(dokumen)) {
             if (value === null) {
                 console.log('');
             } else {
                 $(`.scane_${key}`).append(
                     `
-                        <a class="info-berkas"><a style="color: white; text-decoration: none" class="btn btn-primary info-berkas" role="button" href="${value}" target="_blank">Lihat Berkas</a>
-                        
+                        <a class="info-berkas"><a style="color: white; text-decoration: none" class="btn btn-primary info-berkas" role="button" href="${value}" target="_blank">Lihat Berkas</a>   
                     `
                 );
                 $(`#scane_${key}`).addClass('d-none');

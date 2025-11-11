@@ -67,7 +67,7 @@ class AlumniController extends Controller
             ]);
         }
         
-        $path = '/home/fstunipd/public_html/uploads/';
+        $path = 'uploads/';
         $nim = $request->nim;
         $nama = $request->nama;
         $formatted_nama = Str::title($nama);
@@ -136,10 +136,10 @@ class AlumniController extends Controller
             
                 foreach ($possibleExtensions as $ext) {
                     $filename = $data->kode_file .'_'. $data->nim .'_'. $slug .'.'. $ext;
-                    $filePath = '/home/fstunipd/public_html/uploads/' . $filename;
+                    $filePath = 'uploads/' . $filename;
             
                     if (file_exists($filePath)) {
-                        $dokumenArray[$slug] = '/uploads/' . $filename;
+                        $dokumenArray[$slug] = 'uploads/' . $filename;
                         $found = true;
                         break;
                     }
