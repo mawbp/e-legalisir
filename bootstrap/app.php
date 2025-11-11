@@ -15,8 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
         $middleware->alias([
-          'role'  => RoleMiddleware::class,
-          'complete' => CompleteProfileMiddleware::class
+        'role'  => RoleMiddleware::class,
+        'complete' => CompleteProfileMiddleware::class
         ]);
         $middleware->redirectGuestsTo('/user/login');
         $middleware->validateCsrfTokens(except: [

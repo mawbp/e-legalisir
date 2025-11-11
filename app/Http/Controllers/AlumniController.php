@@ -67,7 +67,7 @@ class AlumniController extends Controller
             ]);
         }
         
-        $path = 'uploads/';
+        $path = config('path.berkas');
         $nim = $request->nim;
         $nama = $request->nama;
         $formatted_nama = Str::title($nama);
@@ -172,65 +172,61 @@ class AlumniController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $rules = [
-            'nim' => 'required|string',
-            'nama' => 'required|string',
-            'prodi' => 'required|string',
-            'angkatan' => 'required|string'
-        ];
-        
-        $dokumen = Dokumen::all();
-        foreach ($dokumen as $d) {
-            if($d->pemilik == "Alumni"){
-                $slug = Str::slug($d->nama_dokumen, '_');
-                $rules["scane_$slug"] = 'nullable|file|mimes:jpg,jpeg,png|max:2048';    
-            }
-        }
-        $validator = Validator::make($request->all(), $rules, [
-            'nim.required' => 'Lengkapi NIM alumni',
-            'nama.required' => 'Lengkapi nama alumni',
-            'prodi.required' => 'Lengkapi prodi alumni',
-            'prodi.required' => 'Lengkapi prodi alumni',
-            'angkatan.required' => 'Lengkapi tahun angkatan alumni',
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-            'validation' => $validator->errors()->first()
-            ]);
-        }
+      $rules = [
+          'nim' => 'required|string',
+          'nama' => 'required|string',
+          'prodi' => 'required|string',
+          'angkatan' => 'required|string'
+      ];
       
-        $path = '/home/fstunipd/public_html/uploads/';
-        $nim = $request->nim;
-        $nama_alumni = $request->nama;
-        $formatted_nama = Str::title($nama_alumni);
-        $prodi = $request->prodi;
-        $angkatan = $request->angkatan;
-        $kode = Alumni::where('nim', $nim)->value('kode_file');
+      $dokumen = Dokumen::all();
+      foreach ($dokumen as $d) {
+          if($d->pemilik == "Alumni"){
+              $slug = Str::slug($d->nama_dokumen, '_');
+              $rules["scane_$slug"] = 'nullable|file|mimes:jpg,jpeg,png|max:2048';    
+          }
+      }
+      $validator = Validator::make($request->all(), $rules, [
+          'nim.required' => 'Lengkapi NIM alumni',
+          'nama.required' => 'Lengkapi nama alumni',
+          'prodi.required' => 'Lengkapi prodi alumni',
+          'prodi.required' => 'Lengkapi prodi alumni',
+          'angkatan.required' => 'Lengkapi tahun angkatan alumni',
+      ]);
 
-        foreach ($dokumen as $d) {
-            $slug = Str::slug($d->nama_dokumen, '_'); 
-            $inputName = 'scane_' . $slug;
-        
-            if ($request->hasFile($inputName)) {
-                $file = $request->file($inputName);
-        
-                $nama = $kode .'_'. $nim .'_'. $slug .'.'. $file->getClientOriginalExtension();
-        
-                // Hapus file lama kalau ada
-                $baseName = $kode .'_'. $nim .'_'. $slug;
-                
-                foreach (glob($path . $baseName . '.*') as $oldFile) {
-                    if (is_file($oldFile)) {
-                          unlink($oldFile);
-                    }
-                }
-        
-                // Pindahkan file
-                $file->move($path, $nama);
-            }
+      if($validator->fails()){
+          return response()->json([
+          'validation' => $validator->errors()->first()
+          ]);
+      }
+
+      $nim = $request->nim;
+      $nama_alumni = $request->nama;
+      $formatted_nama = Str::title($nama_alumni);
+      $prodi = $request->prodi;
+      $angkatan = $request->angkatan;
+      $kode = Alumni::where('nim', $nim)->value('kode_file');
+
+      foreach ($dokumen as $d) {
+        $slug = Str::slug($d->nama_dokumen, '_'); 
+        $inputName = 'scane_' . $slug;
+    
+        if ($request->hasFile($inputName)) {
+          $file = $request->file($inputName);
+  
+          $nama = $kode .'_'. $nim .'_'. $slug .'.'. $file->getClientOriginalExtension();
+  
+          // Hapus file lama kalau ada
+          $files = Storage::disk('public')->files('berkas');
+          foreach ($files as $dupeFile) {
+            if (preg_match("/berkas\/" . $kode .'_'. $nim .'_'. $slug . "\.[a-zA-Z0-9]+$/", $dupeFile)) {
+              Storage::disk('public')->delete($dupeFile);
+            };
+          }
+          
+          $file->storeAs('berkas', $nama, 'public');
         }
-     
+      }
 
       try {
         $data = Alumni::where('id', $id)->value('nim');
