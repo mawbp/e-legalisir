@@ -67,7 +67,6 @@ class AlumniController extends Controller
             ]);
         }
         
-        $path = config('path.berkas');
         $nim = $request->nim;
         $nama = $request->nama;
         $formatted_nama = Str::title($nama);
@@ -82,17 +81,9 @@ class AlumniController extends Controller
             
                 if ($request->hasFile($inputName)) {
                     $file = $request->file($inputName);
-            
                     $nama = $kode .'_'. $nim .'_'. $slug .'.'. $file->getClientOriginalExtension();
-                    $full_path = $path . $nama;
-            
-                    // Hapus file lama kalau ada
-                    if (file_exists($full_path)) {
-                        unlink($full_path);
-                    }
-            
-                    // Pindahkan file
-                    $file->move($path, $nama);
+
+                    $file->storeAs('berkas', $nama, 'public');
                 }    
             }
         }
