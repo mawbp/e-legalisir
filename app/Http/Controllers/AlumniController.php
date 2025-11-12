@@ -26,14 +26,6 @@ class AlumniController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -104,58 +96,6 @@ class AlumniController extends Controller
       } catch (\Exception $e){
         return response()->json(['error' => $e->getMessage()]);
       }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-        try {
-            $cek = Alumni::where('id', $id)->exists();
-            $data = Alumni::where('id', $id)->first();
-            $dokumen = Dokumen::all();
-            $dokumenArray = [];
-            
-            foreach ($dokumen as $d) {
-                $slug = Str::slug($d->nama_dokumen, '_');
-                $found = false;
-            
-                // Coba beberapa ekstensi
-                $possibleExtensions = ['jpg', 'png', 'jpeg', 'pdf'];
-            
-                foreach ($possibleExtensions as $ext) {
-                    $filename = $data->kode_file .'_'. $data->nim .'_'. $slug .'.'. $ext;
-                    $filePath = 'uploads/' . $filename;
-            
-                    if (file_exists($filePath)) {
-                        $dokumenArray[$slug] = 'uploads/' . $filename;
-                        $found = true;
-                        break;
-                    }
-                }
-            
-                if (!$found) {
-                    $dokumenArray[$slug] = null;
-                }
-            }
-            if($cek){
-                return response()->json([ 'data' => $data, 'dokumen' => $dokumenArray]);
-            } else {
-                return response()->json(['failed' => 'Alumni tidak ditemukan']);
-            }
-        } catch (\Exception $e){
-            return response()->json(['error' => $e->getMessage()]);
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
