@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('alamat', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('kelurahan', 255)->nullable(false);
             $table->string('kecamatan', 255)->nullable(false);
             $table->string('kabupaten', 255)->nullable(false);
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('catatan', 255)->nullable(false);
             $table->string('label', 255)->nullable(false);
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

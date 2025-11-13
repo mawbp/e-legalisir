@@ -30,9 +30,9 @@ return new class extends Migration
             $table->string('metode_pengambilan_terpilih', 10)->nullable();
             $table->string('metode_pengambilan', 255)->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('dokumen_id')->references('id')->on('dokumen');
-            $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('dokumen_id')->references('id')->on('dokumen')->onDelete('cascade');
+            $table->foreign('pembayaran_id')->references('id')->on('pembayaran')->onDelete('set null');
             $table->timestamps();
         });
     }

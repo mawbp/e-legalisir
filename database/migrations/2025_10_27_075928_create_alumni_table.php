@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('tahun_angkatan', 20)->nullable(false);
             $table->string('kode_file', 50)->nullable(false);
             
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

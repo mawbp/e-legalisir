@@ -25,5 +25,32 @@ class DatabaseSeeder extends Seeder
             'phone' => '09120312301',
             'role' => 'admin'
         ]);
+
+        DB::table('pengaturan')->insert([
+            [
+                'nama' => 'nama_fakultas',
+                'nilai' => 'Fakultas Teknologi Informasi dan Sains'
+            ],
+            [
+                'nama' => 'nama_kampus',
+                'nilai' => 'Universitas Pembangunan Jaya'
+            ],
+            [
+                'nama' => 'nama_bank',
+                'nilai' => 'Bank Central Asia (BCA)'
+            ],
+            [
+                'nama' => 'no_rekening',
+                'nilai' => '0123456789'
+            ],
+            [
+                'nama' => 'maksimal_cetak',
+                'nilai' => '10'
+            ],
+            [
+                'nama' => 'biaya_admin',
+                'nilai' => '2000'
+            ],
+        ]);
     }
 }
