@@ -1014,10 +1014,10 @@ class AdminController extends Controller
       try {
           foreach ($possibleExtensions as $ext) {
               $filename = $kode_file .'_'. $data->nim .'_ijazah' .'.'. $ext;
-              $filePath = 'uploads/' . $filename;
+              $filePath = 'storage/berkas/' . $filename;
       
               if (file_exists($filePath)) {
-                  $url = asset('uploads/' . $filename);
+                  $url = asset('storage/berkas/' . $filename);
               }
               
           }
