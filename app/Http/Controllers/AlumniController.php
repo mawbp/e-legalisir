@@ -98,6 +98,47 @@ class AlumniController extends Controller
       }
     }
 
+    public function show(string $id)
+    {
+        //
+        try {
+            $cek = Alumni::where('id', $id)->exists();
+            $data = Alumni::where('id', $id)->first();
+            $dokumen = Dokumen::all();
+            $dokumenArray = [];
+            
+            foreach ($dokumen as $d) {
+                $slug = Str::slug($d->nama_dokumen, '_');
+                $found = false;
+            
+                // Coba beberapa ekstensi
+                $possibleExtensions = ['jpg', 'png', 'jpeg', 'pdf'];
+            
+                foreach ($possibleExtensions as $ext) {
+                    $filename = $data->kode_file .'_'. $data->nim .'_'. $slug .'.'. $ext;
+                    $filePath = 'berkas/' . $filename;
+            
+                    if (Storage::disk('public')->exists('berkas/' . $filePath)) {
+                        $dokumenArray[$slug] = asset('storage/berkas/' . $filename);
+                        $found = true;
+                        break;
+                    }
+                }
+            
+                if (!$found) {
+                    $dokumenArray[$slug] = null;
+                }
+            }
+            if($cek){
+                return response()->json([ 'data' => $data, 'dokumen' => $dokumenArray]);
+            } else {
+                return response()->json(['failed' => 'Alumni tidak ditemukan']);
+            }
+        } catch (\Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      */

@@ -278,17 +278,17 @@ class AdminController extends Controller
           
               foreach ($possibleExtensions as $ext) {
                   $filename = $p->user->alumni->kode_file .'_'. $p->user->alumni->nim .'_'. $slug .'.'. $ext;
-                  $filePath = '/home/fstunipd/public_html/uploads/' . $filename;
+                  $filePath = 'berkas/' . $filename;
           
-                  if (file_exists($filePath)) {
-                      $dokumenArray[$slug] = '/uploads/' . $filename;
+                  if (Storage::disk('public')->exists($filePath)) {
+                      $dokumenArray[$slug] = asset('storage/berkas/' . $filename);
                       $found = true;
                       break;
                   }
               }
           
               if (!$found) {
-                  $dokumenArray[$slug] = '/uploads/' . $p->user->alumni->kode_file .'_'. $p->user->alumni->nim .'_'. $slug .'.jpg';
+                  $dokumenArray[$slug] = asset('storage/berkas/' . $p->user->alumni->kode_file .'_'. $p->user->alumni->nim .'_'. $slug .'.jpg');
                   $valid = false;
               }    
           } else if($p->dokumen->pemilik == "Admin"){
@@ -296,10 +296,10 @@ class AdminController extends Controller
           
               foreach ($possibleExtensions as $ext) {
                   $filename = $slug .'.'. $ext;
-                  $filePath = '/home/fstunipd/public_html/uploads/' . $filename;
+                  $filePath = 'berkas/' . $filename;
           
-                  if (file_exists($filePath)) {
-                      $dokumenArray[$slug] = '/uploads/' . $filename;
+                  if (Storage::disk('public')->exists($filePath)) {
+                      $dokumenArray[$slug] = asset('storage/berkas/' . $filename);
                       break;
                   }
               }
