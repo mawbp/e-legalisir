@@ -498,7 +498,7 @@ class AdminController extends Controller
 
         Mail::to($email)->send(new MyEmail($data, $filePath));
       } else if($nama_status == 'Validasi Pembayaran'){
-          Permohonan::where('id', $permohonan_id)->update([
+          Permohonan::where('permohonan_id', $permohonan_id)->update([
               'catatan' => $pesan_admin,
               'status_permohonan' => 'Proses Legalisir Dokumen'
           ]);
@@ -516,11 +516,6 @@ class AdminController extends Controller
           Pembayaran::where('id', $pembayaran_id)->update([
               'status_pembayaran' => 'success',
           ]);
-        
-          $filePath = 'public/invoice' . $permohonan_id . '.pdf';
-          if(Storage::exists($filePath)){
-              Storage::delete($filePath);
-          }
 
           $cek_biaya_kurir = Pembayaran::where('id', $pembayaran_id)->value('biaya_kurir');
           $biaya_kurir = 0;
@@ -589,7 +584,7 @@ class AdminController extends Controller
 
           Mail::to($email)->send(new MyEmail($data, $filePath_update));
       } else if($nama_status == 'Proses Legalisir Dokumen') {
-          Permohonan::where('id', $permohonan_id)->update([
+          Permohonan::where('permohonan_id', $permohonan_id)->update([
               'catatan' => $pesan_admin,
               'status_permohonan' => 'Pengiriman / Pengambilan Dokumen'
           ]);

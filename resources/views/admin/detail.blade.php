@@ -118,7 +118,7 @@
             </p>
 	  			  <a href="{{ route('admin.biaya', ['id' => $permohonan[0]->permohonan_id]) }}" class="btn btn-info btn-block">Lihat Rincian Biaya</a>
 	  			  @if($permohonan[0]->pembayaran->metode_pembayaran == "Transfer Bank" && $permohonan[0]->status_permohonan == "Validasi Pembayaran")
-		  			  <a href="{{ asset('uploads/' . $permohonan[0]->pembayaran->bukti_pembayaran) }}" class="btn btn-info btn-block" data-lightbox="image-1" data-title="Bukti Pembayaran">Lihat Bukti Pembayaran</a>
+		  			  <a href="{{ asset('storage/bukti/' . $permohonan[0]->pembayaran->bukti_pembayaran) }}" class="btn btn-info btn-block" data-lightbox="image-1" data-title="Bukti Pembayaran">Lihat Bukti Pembayaran</a>
             @endif
 	  			</div>
 	  		</div>
