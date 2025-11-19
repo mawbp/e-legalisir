@@ -36,6 +36,14 @@ class DatabaseSeeder extends Seeder
                 'nilai' => 'Universitas Pembangunan Jaya'
             ],
             [
+                'nama' => 'phone_kampus',
+                'nilai' => '0982918289'
+            ],
+            [
+                'nama' => 'email_kampus',
+                'nilai' => 'upj@yahoo.com'
+            ],
+            [
                 'nama' => 'nama_bank',
                 'nilai' => 'Bank Central Asia (BCA)'
             ],
@@ -50,6 +58,30 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'biaya_admin',
                 'nilai' => '2000'
+            ],
+            [
+                'nama' => 'opsi_pg',
+                'nilai' => 'on'
+            ],
+            [
+                'nama' => 'payment_gateway',
+                'nilai' => 'midtrans'
+            ],
+            [
+                'nama' => 'skey_midtrans',
+                'nilai' => 'masukkan_server_key_midtrans_anda'
+            ],
+            [
+                'nama' => 'ckey_midtrans',
+                'nilai' => 'masukkan_client_key_midtrans_anda'
+            ],
+            [
+                'nama' => 'skey_doku',
+                'nilai' => 'masukkan_server_key_doku_anda'
+            ],
+            [
+                'nama' => 'ckey_doku',
+                'nilai' => 'masukkan_client_key_doku_anda'
             ],
         ]);
     }
