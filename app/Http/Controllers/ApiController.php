@@ -21,6 +21,7 @@ use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use App\Mail\MyEmail;
+use Illuminate\Support\Facades\Log;
 
 class ApiController extends Controller
 {
@@ -55,7 +56,7 @@ class ApiController extends Controller
             
             Permohonan::where('permohonan_id', $permohonan_id)
                 ->update([
-                   'pembayaran_id' => $pembayaran->id 
+                  'pembayaran_id' => $pembayaran->id 
                 ]);
                 
             Pembayaran::where('id', $pembayaran_id)->update(['status_pembayaran' => 'expired', 'snap_token' => '']);
@@ -75,7 +76,7 @@ class ApiController extends Controller
       $biaya_kurir = $pembayaran->biaya_kurir;
       $biaya_admin = $pengaturan['biaya_admin']->nilai;
       $biaya_total = Pembayaran::where('id', $pembayaran_id)->value('jumlah_bayar');
-      $snapToken;
+      $snapToken = null;
 
       if($pengaturan['payment_gateway']->nilai == 'midtrans'){
         if (empty($pengaturan['skey_midtrans']->nilai) || empty($pengaturan['ckey_midtrans']->nilai)) {
@@ -250,70 +251,70 @@ class ApiController extends Controller
         'body' => 'Pembayaran anda telah diterima, dokumen anda sedang dalam proses legalisir.',
       ];
 
-       $cek_biaya_kurir = Pembayaran::where('id', $pembayaran_id)->value('biaya_kurir');
-       $biaya_kurir;
-       if(!$cek_biaya_kurir){
-         $biaya_kurir = 0;
-       } else {
-         $biaya_kurir = $cek_biaya_kurir;
-       }
+      $cek_biaya_kurir = Pembayaran::where('id', $pembayaran_id)->value('biaya_kurir');
+      $biaya_kurir = 0;
+      if(!$cek_biaya_kurir){
+        $biaya_kurir = 0;
+      } else {
+        $biaya_kurir = $cek_biaya_kurir;
+      }
 
-       $permohonan = Permohonan::with('dokumen')->where('permohonan_id', $permohonan_id)->get();
-       $items = [];
-       foreach($permohonan as $p){
-         $item = InvoiceItem::make($p->dokumen->nama_dokumen)
-           ->description($p->dokumen->deskripsi)
-           ->pricePerUnit($p->harga_per_lembar)
-           ->quantity($p->jumlah_cetak);
-         $items[] = $item;
-       }
-       $items[] = InvoiceItem::make("Biaya Pengiriman")
-           ->description("")
-           ->pricePerUnit($biaya_kurir)
-           ->quantity(1);
+      $permohonan = Permohonan::with('dokumen')->where('permohonan_id', $permohonan_id)->get();
+      $items = [];
+      foreach($permohonan as $p){
+        $item = InvoiceItem::make($p->dokumen->nama_dokumen)
+          ->description($p->dokumen->deskripsi)
+          ->pricePerUnit($p->harga_per_lembar)
+          ->quantity($p->jumlah_cetak);
+        $items[] = $item;
+      }
+      $items[] = InvoiceItem::make("Biaya Pengiriman")
+          ->description("")
+          ->pricePerUnit($biaya_kurir)
+          ->quantity(1);
 
-       $client = new Party([
-         'name'   => $pengaturan['nama_kampus']->nilai,
-         'phone'  => $pengaturan['phone_kampus']->nilai,
-         'custom_fields' => [
-           'email' => $pengaturan['email_kampus']->nilai
-         ],
-       ]);
+      $client = new Party([
+        'name'   => $pengaturan['nama_kampus']->nilai,
+        'phone'  => $pengaturan['phone_kampus']->nilai,
+        'custom_fields' => [
+          'email' => $pengaturan['email_kampus']->nilai
+        ],
+      ]);
 
-       $customer = new Party([
-         'name'  => Auth::user()->alumni->nama,
-         'phone' => Auth::user()->phone,
-         'custom_fields' => [
-           'email' => Auth::user()->email
-         ],
-       ]);
+      $customer = new Party([
+        'name'  => Auth::user()->alumni->nama,
+        'phone' => Auth::user()->phone,
+        'custom_fields' => [
+          'email' => Auth::user()->email
+        ],
+      ]);
 
-       $notes = [
-         'Terima kasih telah menggunakan Layanan Legalisir Online',
-         'Fakultas SAINTEK UNIPDU Jombang',
-       ];
-       $notes = implode("<br>", $notes);
+      $notes = [
+        'Terima kasih telah menggunakan Layanan Legalisir Online',
+        'Fakultas SAINTEK UNIPDU Jombang',
+      ];
+      $notes = implode("<br>", $notes);
 
-       $invoice = Invoice::make('receipt')
-         ->series('BIG')
-         ->status(__('invoices::invoice.paid'))
-         ->sequence(667)
-         ->serialNumberFormat('{SEQUENCE}/{SERIES}')
-         ->seller($client)
-         ->buyer($customer)
-         ->date(now())
-         ->dateFormat('Y/m/d')
-         ->currencySymbol('Rp')
-         ->currencyCode('IDR')
-         ->currencyFormat('{SYMBOL}{VALUE}')
-         ->currencyThousandsSeparator('.')
-         ->currencyDecimalPoint(',')
-         ->filename('invoices/' . $permohonan_id . '_paid')
-         ->addItems($items)
-         ->notes($notes)
-         ->save('public');
+      $invoice = Invoice::make('receipt')
+        ->series('BIG')
+        ->status(__('invoices::invoice.paid'))
+        ->sequence(667)
+        ->serialNumberFormat('{SEQUENCE}/{SERIES}')
+        ->seller($client)
+        ->buyer($customer)
+        ->date(now())
+        ->dateFormat('Y/m/d')
+        ->currencySymbol('Rp')
+        ->currencyCode('IDR')
+        ->currencyFormat('{SYMBOL}{VALUE}')
+        ->currencyThousandsSeparator('.')
+        ->currencyDecimalPoint(',')
+        ->filename('invoices/' . $permohonan_id . '_paid')
+        ->addItems($items)
+        ->notes($notes)
+        ->save('public');
 
-         $filePath_update = storage_path('app/public/invoices/' . $permohonan_id . '_paid.pdf');
+        $filePath_update = storage_path('app/public/invoices/' . $permohonan_id . '_paid.pdf');
         Mail::to($email)->send(new MyEmail($data, $filePath_update));
 
         Pembayaran::where('id', $pembayaran_id)->update([
@@ -351,14 +352,13 @@ class ApiController extends Controller
         if($request->hasFile('file')){
           $file = $request->file('file');
           $nama = $permohonan_id . '_bukti' . '.' . $file->getClientOriginalExtension();
-          $path = '/home/fstunipd/public_html/uploads/';
-          $full_path = '/home/fstunipd/public_html/uploads/' . $nama;
+          $path = 'bukti/' . $nama;
 
-          if(file_exists($full_path)){
-            unlink($full_path);
+          if(Storage::disk('public')->exists('bukti/' . $nama)){
+            Storage::disk('public')->delete('bukti/' . $nama);
           }
 
-          $file->move($path, $nama);
+          $file->storeAs('bukti', $nama, 'public');
 
           Permohonan::where('permohonan_id', $permohonan_id)->update([
             'catatan' => '',
